@@ -1,28 +1,43 @@
 # Gen Tech Ventures — Landing Page
 
-A simple, single-page landing site for **Gen Tech Ventures**, the personal holding company of Eugeni Llagostera Saltor.
+A premium single-page site for **Gen Tech Ventures**, the personal holding company of Eugeni Llagostera Saltor. Dark, editorial styling inspired by modern VC sites (e.g. type1ventures.com).
 
 ## Stack
 
 - Plain HTML + CSS (no build step, no dependencies)
-- Inline SVG logo + favicon
-- Google Fonts (Inter)
+- Google Fonts: Instrument Serif (display) + Inter (body)
+- Inline SVG favicon
+- Intersection Observer scroll reveals
 - Fully responsive, mobile-first
 
 ## Project structure
 
 ```
 .
-├── index.html       # The landing page (all HTML + CSS inline)
-├── favicon.svg      # Favicon (icon from the logo)
-└── README.md        # This file
+├── index.html           # The landing page (all HTML + CSS + JS inline)
+├── favicon.svg          # Favicon
+├── enkitek-logo.png     # ← YOU add this (see below)
+├── colectin-logo.png    # ← YOU add this (see below)
+├── eugeni.jpg           # ← YOU add this (see below)
+├── vercel.json          # Vercel config
+└── README.md            # This file
 ```
+
+## ⚠ Before you deploy — save the 3 images
+
+The page references three image files that need to live next to `index.html`. Save the attachments you shared in the chat into this folder, using these exact filenames:
+
+| File name            | What it is              |
+| -------------------- | ----------------------- |
+| `enkitek-logo.png`   | The Enkitek logo        |
+| `colectin-logo.png`  | The Colectin logo       |
+| `eugeni.jpg`         | Your black & white photo (it'll be auto-converted to grayscale by CSS, so colour is fine too) |
+
+If you prefer `.jpg` or different filenames, just update the `src="..."` paths in `index.html` accordingly.
 
 ## Local preview
 
-Just open `index.html` in your browser — there's no build step.
-
-Or, from the folder:
+Open `index.html` directly, or run a quick server:
 
 ```bash
 python3 -m http.server 8000
@@ -38,18 +53,13 @@ python3 -m http.server 8000
 From the project folder:
 
 ```bash
-# 1. Initialize git
 git init
 git add .
 git commit -m "Initial commit: Gen Tech Ventures landing page"
 
-# 2. Create a new repo on GitHub
-#    Go to https://github.com/new
-#    Name it e.g. "gentechventures-landing"
-#    Do NOT initialize with README/gitignore/license
-#    (keep it empty so we can push)
+# Create a new empty repo on https://github.com/new
+# (name it e.g. gentechventures-landing — no README/gitignore/license)
 
-# 3. Connect and push
 git branch -M main
 git remote add origin https://github.com/<YOUR_USERNAME>/gentechventures-landing.git
 git push -u origin main
@@ -58,48 +68,41 @@ git push -u origin main
 ### 2. Deploy on Vercel
 
 1. Go to https://vercel.com/new
-2. Click **"Import Git Repository"** and authorize GitHub if needed.
-3. Pick the `gentechventures-landing` repo you just pushed.
-4. On the configuration screen:
-   - **Framework Preset:** `Other` (it's a static site)
-   - **Build Command:** leave empty
-   - **Output Directory:** leave empty (root)
-   - **Install Command:** leave empty
-5. Click **"Deploy"**.
-6. After ~20 seconds you'll get a live URL like `https://gentechventures-landing.vercel.app`.
+2. **Import Git Repository** → pick the repo you just pushed.
+3. Configuration:
+   - **Framework Preset:** `Other`
+   - **Build Command:** _(leave empty)_
+   - **Output Directory:** _(leave empty — root)_
+   - **Install Command:** _(leave empty)_
+4. Click **Deploy**. ~20 seconds later you'll get a live URL.
 
-### 3. Attach a custom domain (optional, recommended)
+### 3. Custom domain (optional)
 
-If you have a domain (e.g. `gentechventures.com`):
-
-1. In your Vercel project → **Settings → Domains**.
-2. Add your domain and follow Vercel's DNS instructions
-   (typically an `A` record pointing to `76.76.21.21` or a `CNAME` to `cname.vercel-dns.com`).
-3. DNS propagation usually takes a few minutes; SSL is automatic.
+Vercel project → **Settings → Domains** → add your domain and follow the DNS instructions (usually an `A` record → `76.76.21.21`, or `CNAME` → `cname.vercel-dns.com`). SSL is automatic.
 
 ---
 
-## Updating the site
+## Auto-deploys
 
-Every push to the `main` branch on GitHub auto-deploys to Vercel:
+Every push to `main` triggers a redeploy on Vercel.
 
 ```bash
-# Make your edits, then:
 git add .
 git commit -m "Update copy"
 git push
-# Vercel deploys automatically in ~20 seconds
 ```
 
 ---
 
-## What to customize later
+## Easy customization
 
-- **LinkedIn page link:** when you create the company LinkedIn page, add it as a link in the footer or founder section (search for `linkedin.com` in `index.html`).
-- **Tagline / About copy:** edit the `<h1>` and `.tagline` in `index.html`, and the About section paragraph.
-- **Portfolio descriptions:** each card's `<p>` inside `#portfolio` is currently a placeholder — swap in real positioning lines for Enkitek and Colectin whenever you'd like.
-- **Replace the SVG logo with your PNG:** if you prefer your original PNG logo, drop the file into this folder as `logo.png` and replace the `<svg class="hero-logo">...</svg>` block with `<img src="/logo.png" alt="Gen Tech Ventures" class="hero-logo" />`.
+- **Hero headline + tagline:** `<h1>` + `.hero-sub` inside `index.html`
+- **Thesis copy (About section):** `.about-body` paragraphs
+- **Portfolio descriptions + tags:** inside each `.portfolio-card` block
+- **Founder bio:** inside the `#founder` section
+- **Accent color:** change `--accent: #5b9dff;` in the `:root` block (top of `<style>`)
+- **LinkedIn page link:** once your company LinkedIn exists, add another `.founder-link` block, or put it in the footer.
 
 ---
 
-&copy; 2026 Gen Tech Ventures
+&copy; 2026 Gen Tech Ventures · Barcelona
